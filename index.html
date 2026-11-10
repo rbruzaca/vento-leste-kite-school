@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vento Leste Kite School</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anybody:wdth,wght@50..150,300..900&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --mar:#0B3954; --tinta:#0A2236; --ceu:#BFE3E8; --espuma:#F6FAF9;
+  --duna:#E8B04B; --pipa:#E2416B; --texto:#183044; --suave:#5C7385;
+  --display:"Anybody", system-ui, sans-serif; --body:"Figtree", system-ui, sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--body);color:var(--texto);background:var(--espuma);font-size:1.0625rem;line-height:1.6}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--duna);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 1.5rem}
+
+/* Nav */
+.nav{position:absolute;inset:0 0 auto 0;z-index:5;color:var(--espuma)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:76px}
+.logo{font-family:var(--display);font-weight:800;font-variation-settings:"wdth" 130;font-size:1.35rem;text-decoration:none;display:flex;gap:.55rem;align-items:center}
+.logo svg{width:28px;height:28px}
+.nav ul{display:flex;gap:1.75rem;list-style:none;font-weight:500}
+.nav ul a{text-decoration:none;opacity:.85}
+.nav ul a:hover{opacity:1}
+.btn{display:inline-block;font:600 1rem var(--body);padding:.85rem 1.4rem;border-radius:999px;border:0;cursor:pointer;text-decoration:none;transition:transform .15s}
+.btn:hover{transform:translateY(-1px)}
+.btn-pipa{background:var(--pipa);color:#fff}
+.btn-claro{background:transparent;color:var(--espuma);box-shadow:inset 0 0 0 2px rgba(246,250,249,.5)}
+.nav .btn{padding:.6rem 1.1rem}
+
+/* Hero */
+.hero{background:var(--mar);color:var(--espuma);position:relative;overflow:hidden;padding:150px 0 0}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);column-gap:3rem;align-items:start;position:relative;z-index:2}
+.hero h1{grid-column:1/-1;margin-bottom:2rem}
+.hero h1{font-family:var(--display);font-weight:850;line-height:.9;font-size:clamp(3rem,8.4vw,7.4rem);letter-spacing:-.01em;font-variation-settings:"wdth" 140}
+.hero h1 span{display:block;animation:rajada 2.4s cubic-bezier(.2,.7,.2,1) backwards}
+.hero h1 span:nth-child(2){animation-delay:.15s}
+.hero h1 span:nth-child(3){animation-delay:.3s}
+@keyframes rajada{0%{font-variation-settings:"wdth" 50;opacity:0;transform:translateX(-4rem)}60%{font-variation-settings:"wdth" 150;opacity:1}100%{font-variation-settings:"wdth" 140;transform:none}}
+.hero p.lead{max-width:34rem;font-size:1.2rem;color:var(--ceu);margin:0 0 2rem}
+.hero .acoes{display:flex;gap:.9rem;flex-wrap:wrap;margin-bottom:5rem}
+
+/* Painel de vento */
+.painel{background:rgba(246,250,249,.06);border:1px solid rgba(191,227,232,.25);border-radius:22px;padding:1.6rem;margin-bottom:5rem;backdrop-filter:blur(6px)}
+.painel header{display:flex;justify-content:space-between;align-items:center;color:var(--ceu);font-size:.95rem}
+.ao-vivo{display:flex;align-items:center;gap:.45rem}
+.ao-vivo i{width:8px;height:8px;border-radius:50%;background:#5BE3A1;box-shadow:0 0 0 0 rgba(91,227,161,.6);animation:pulso 2s infinite}
+@keyframes pulso{70%{box-shadow:0 0 0 8px rgba(91,227,161,0)}100%{box-shadow:0 0 0 0 rgba(91,227,161,0)}}
+.leitura{display:flex;align-items:center;gap:1.5rem;margin:1.1rem 0 1.3rem}
+.nos{font-family:var(--display);font-weight:800;font-size:5.2rem;line-height:1;font-variation-settings:"wdth" 110;font-variant-numeric:tabular-nums}
+.nos small{font-family:var(--body);font-size:1rem;font-weight:500;color:var(--ceu);margin-left:.3rem}
+.bussola{width:84px;height:84px;flex:none}
+.bussola .seta{transform-origin:42px 42px;transition:transform 1.4s ease}
+.dados{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;border-top:1px solid rgba(191,227,232,.2);padding-top:1rem;font-size:.92rem;color:var(--ceu)}
+.dados b{display:block;color:var(--espuma);font-size:1.1rem}
+.veredito{margin-top:1rem;background:var(--duna);color:var(--tinta);border-radius:12px;padding:.7rem .9rem;font-weight:600;font-size:.95rem}
+
+.pipa-svg{position:absolute;right:max(2rem,calc((100vw - 1180px)/2));top:64px;width:min(36vw,440px);opacity:.18;z-index:1;pointer-events:none;overflow:visible}
+.onda{display:block;width:100%;height:70px;margin-top:-1px}
+
+/* Seções */
+section{padding:6rem 0}
+h2{font-family:var(--display);font-weight:800;font-variation-settings:"wdth" 120;font-size:clamp(2.1rem,4.5vw,3.4rem);line-height:1;color:var(--mar);max-width:20ch}
+.intro{max-width:38rem;color:var(--suave);margin-top:1rem;font-size:1.1rem}
+
+/* Aulas */
+.aulas{margin-top:3rem;border-top:2px solid var(--mar)}
+.aula{display:grid;grid-template-columns:1.2fr 2fr 11rem;gap:2rem;align-items:center;padding:2rem 0;border-bottom:1px solid #D3E0E4}
+.aula h3{font-family:var(--display);font-weight:750;font-size:1.8rem;font-variation-settings:"wdth" 115;color:var(--mar);line-height:1.05}
+.aula .dur{color:var(--suave);font-size:.95rem;margin-top:.3rem}
+.aula p{color:var(--texto);max-width:46ch}
+.preco{text-align:right}
+.preco strong{font-family:var(--display);font-size:2rem;font-weight:800;color:var(--mar);display:block;line-height:1}
+.preco span{color:var(--suave);font-size:.9rem;display:block}
+section{scroll-margin-top:30px}
+.aula.destaque{background:var(--ceu);border-radius:18px;padding:2rem 1.5rem;margin:.5rem -1.5rem;border:0}
+
+/* Temporada */
+.temporada{background:var(--tinta);color:var(--espuma)}
+.temporada h2{color:var(--espuma)}
+.temporada .intro{color:var(--ceu)}
+.grafico{display:grid;grid-template-columns:repeat(12,1fr);gap:.6rem;align-items:end;height:280px;margin-top:3rem}
+.mes{display:flex;flex-direction:column;align-items:center;justify-content:end;height:100%;gap:.5rem;cursor:pointer;background:none;border:0;color:var(--ceu);font:500 .85rem var(--body)}
+.mes .barra{width:100%;border-radius:8px 8px 3px 3px;background:#2A5876;transition:background .2s}
+.mes.alta .barra{background:var(--duna)}
+.mes[aria-pressed="true"] .barra{background:var(--pipa)}
+.mes[aria-pressed="true"]{color:#fff}
+.leitura-mes{margin-top:1.75rem;min-height:3.2em;font-size:1.1rem;max-width:44rem}
+.leitura-mes b{color:var(--duna)}
+.legenda{display:flex;gap:1.5rem;margin-top:1rem;font-size:.9rem;color:var(--ceu)}
+.legenda i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:.4rem;vertical-align:-1px}
+
+/* Passos */
+.passos{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;margin-top:3rem;counter-reset:p}
+.passo{border-top:3px solid var(--pipa);padding-top:1.2rem}
+.passo::before{counter-increment:p;content:counter(p);font-family:var(--display);font-weight:800;font-size:2.6rem;color:var(--pipa);line-height:1;display:block;margin-bottom:.6rem}
+.passo h3{font-size:1.15rem;color:var(--mar);margin-bottom:.4rem}
+.passo p{color:var(--suave);font-size:.98rem}
+
+/* Reserva */
+.reserva{background:var(--ceu)}
+.reserva-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:4rem;align-items:start}
+form{background:var(--espuma);border-radius:24px;padding:2.2rem;display:grid;gap:1.1rem;box-shadow:0 30px 60px -30px rgba(11,57,84,.45)}
+.linha{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+label{display:grid;gap:.35rem;font-weight:600;font-size:.95rem;color:var(--mar)}
+input,select{font:400 1rem var(--body);padding:.8rem .9rem;border:1.5px solid #C5D6DC;border-radius:12px;background:#fff;color:var(--texto)}
+input:focus,select:focus{border-color:var(--mar);outline:none;box-shadow:0 0 0 3px rgba(11,57,84,.15)}
+fieldset{border:0;display:grid;gap:.5rem}
+legend{font-weight:600;font-size:.95rem;color:var(--mar);margin-bottom:.4rem}
+.niveis{display:flex;gap:.5rem;flex-wrap:wrap}
+.niveis label{font-weight:500;cursor:pointer}
+.niveis input{position:absolute;opacity:0;pointer-events:none}
+.niveis span{display:block;padding:.55rem 1rem;border-radius:999px;border:1.5px solid #C5D6DC;background:#fff}
+.niveis input:checked+span{background:var(--mar);color:#fff;border-color:var(--mar)}
+.niveis input:focus-visible+span{outline:3px solid var(--duna);outline-offset:2px}
+.erro{color:#B3123F;font-size:.88rem;font-weight:500;min-height:1.2em}
+.resumo{font-size:.95rem;color:var(--suave)}
+.resumo b{color:var(--mar)}
+.ok{display:none;background:var(--espuma);border-radius:24px;padding:2.2rem}
+.ok h3{font-family:var(--display);font-size:2rem;color:var(--mar);font-variation-settings:"wdth" 120;margin-bottom:.6rem}
+.ok.visivel{display:block;animation:surge .5s ease both}
+@keyframes surge{from{opacity:0;transform:translateY(10px)}}
+.infos{margin-top:2rem;display:grid;gap:1.2rem}
+.infos div b{display:block;color:var(--mar)}
+
+footer{background:var(--mar);color:var(--ceu);padding:3rem 0;font-size:.95rem}
+footer .wrap{display:flex;justify-content:space-between;gap:2rem;flex-wrap:wrap}
+footer .logo{color:var(--espuma)}
+
+
+/* ===== Interações ===== */
+.nav{position:fixed;transition:background .3s,box-shadow .3s}
+.nav .wrap{transition:height .3s}
+.nav.rolou{background:rgba(11,57,84,.93);backdrop-filter:blur(10px);box-shadow:0 12px 30px -18px rgba(0,0,0,.5)}
+.nav.rolou .wrap{height:62px}
+.nav ul a{position:relative;padding:.3rem 0;transition:opacity .2s}
+.nav ul a::after{content:"";position:absolute;left:0;bottom:-3px;height:2px;width:100%;background:var(--duna);transform:scaleX(0);transform-origin:left;transition:transform .28s cubic-bezier(.2,.7,.2,1)}
+.nav ul a:hover::after,.nav ul a.ativo::after{transform:scaleX(1)}
+.nav ul a.ativo{opacity:1}
+.logo svg{transition:transform .55s cubic-bezier(.3,1.7,.5,1)}
+.logo:hover svg{transform:rotate(-16deg) translate(-1px,-3px)}
+.btn{transition:transform .2s,box-shadow .2s,background .2s}
+.btn-pipa:hover{background:#CC2D57;box-shadow:0 12px 26px -10px rgba(226,65,107,.8);transform:translateY(-2px)}
+.btn-claro:hover{background:rgba(246,250,249,.1);box-shadow:inset 0 0 0 2px var(--espuma);transform:translateY(-2px)}
+.btn:active{transform:scale(.97)}
+
+.hero::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(520px circle at var(--mx,72%) var(--my,30%),rgba(191,227,232,.14),transparent 62%)}
+.hero h1 span{transition:font-variation-settings .5s cubic-bezier(.2,.7,.2,1),color .3s;cursor:default;width:max-content;max-width:100%}
+.pipa-svg{transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+.painel{transition:transform .25s ease-out,border-color .3s,background .3s;will-change:transform}
+.painel:hover{border-color:rgba(232,176,75,.55);background:rgba(246,250,249,.09)}
+.dados div{border-radius:10px;padding:.45rem;margin:-.45rem;transition:background .2s}
+.veredito{transition:transform .25s}
+.bussola circle{transition:stroke .3s}
+
+.aula{position:relative;isolation:isolate}
+.aula::before{content:"";position:absolute;inset:0 -1.5rem;border-radius:18px;background:#E3EFF2;opacity:0;transform:scale(.97);transition:opacity .25s,transform .35s cubic-bezier(.2,.7,.2,1);z-index:-1}
+.aula.destaque::before{inset:0;background:#A9D7DD}
+.aula h3{transition:font-variation-settings .4s cubic-bezier(.2,.7,.2,1),color .25s}
+.preco strong{transition:color .25s}
+.escolher{display:inline-block;margin-top:.5rem;background:none;border:0;font:600 .95rem var(--body);color:var(--pipa);cursor:pointer;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:5px;opacity:0;transform:translateY(5px);transition:opacity .25s,transform .25s,color .2s}
+.escolher:hover{color:#B3123F}
+.escolher:focus-visible{opacity:1;transform:none}
+
+.mes .barra{position:relative;transition:background .2s,filter .2s,box-shadow .25s}
+.dica{position:absolute;left:50%;top:-2.3rem;transform:translate(-50%,6px);background:var(--espuma);color:var(--tinta);font-weight:700;font-size:.82rem;padding:.25rem .55rem;border-radius:8px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s}
+.mes:focus-visible .dica,.mes[aria-pressed="true"] .dica{opacity:1;transform:translate(-50%,0)}
+
+.passo{padding:1.2rem 1rem;margin:0 -1rem;border-radius:0 0 16px 16px;transition:background .3s,transform .3s cubic-bezier(.2,.7,.2,1),box-shadow .3s}
+.passo::before{transform-origin:left bottom;transition:transform .4s cubic-bezier(.3,1.7,.5,1)}
+
+input,select{transition:border-color .2s,box-shadow .2s}
+input:hover,select:hover{border-color:#8FB0BC}
+.niveis span{transition:border-color .2s,background .2s,transform .2s}
+.niveis label:hover span{border-color:var(--mar);transform:translateY(-1px)}
+form{transition:box-shadow .3s}
+form.realce{animation:realce 1.2s ease}
+@keyframes realce{30%{box-shadow:0 0 0 4px var(--pipa),0 30px 60px -30px rgba(11,57,84,.45)}}
+.infos div{padding:.7rem 1rem;margin:0 -1rem;border-radius:14px;transition:background .25s,transform .25s}
+footer .topo{text-decoration:none;font-weight:600;color:var(--espuma);border-bottom:2px solid transparent;transition:border-color .2s}
+footer .topo:hover{border-color:var(--duna)}
+footer .logo{cursor:default}
+
+@media (hover:hover){
+  .hero h1 span:hover{font-variation-settings:"wdth" 150;color:var(--duna)}
+  .dados div:hover{background:rgba(191,227,232,.12)}
+  .painel:hover .veredito{transform:translateY(-2px)}
+  .painel:hover .bussola circle{stroke:var(--duna)}
+  .aula:hover::before{opacity:1;transform:none}
+  .aula:hover h3{font-variation-settings:"wdth" 140;color:var(--pipa)}
+  .aula:hover .preco strong{color:var(--pipa)}
+  .aula:hover .escolher{opacity:1;transform:none}
+  .mes:hover .barra{filter:brightness(1.18);box-shadow:0 0 0 2px rgba(246,250,249,.5)}
+  .mes:hover .dica{opacity:1;transform:translate(-50%,0)}
+  .mes:hover{color:#fff}
+  .passo:hover{background:#fff;transform:translateY(-6px);box-shadow:0 22px 40px -26px rgba(11,57,84,.5)}
+  .passo:hover::before{transform:scale(1.2) rotate(-5deg)}
+  .infos div:hover{background:rgba(246,250,249,.65);transform:translateX(6px)}
+}
+@media (hover:none){.escolher{opacity:1;transform:none}}
+
+@media (max-width:900px){
+  .nav ul{display:none}
+  .hero-grid,.reserva-grid{grid-template-columns:1fr;gap:1rem}
+  .hero .acoes{margin-bottom:2.5rem}
+  .aula{grid-template-columns:1fr;gap:.8rem}
+  .preco{text-align:left}
+  .passos{grid-template-columns:1fr 1fr}
+  .grafico{gap:.3rem;height:220px}
+  .mes{font-size:.7rem}
+}
+@media (max-width:520px){
+  .passos,.linha{grid-template-columns:1fr}
+  .dados{grid-template-columns:1fr 1fr}
+  .nos{font-size:4rem}
+  form,.ok{padding:1.5rem}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Principal">
+  <div class="wrap">
+    <a href="#topo" class="logo" aria-label="Vento Leste, início">
+      <svg viewBox="0 0 28 28" aria-hidden="true"><path d="M3 12 Q14 1 25 12 L21 14 Q14 8 7 14 Z" fill="#E2416B"/><path d="M14 13 Q12 20 16 27" stroke="#E8B04B" stroke-width="1.6" fill="none"/></svg>
+      Vento Leste
+    </a>
+    <ul>
+      <li><a href="#aulas">Aulas</a></li>
+      <li><a href="#temporada">Temporada</a></li>
+      <li><a href="#como">Como funciona</a></li>
+    </ul>
+    <a href="#reserva" class="btn btn-pipa">Reservar aula</a>
+  </div>
+</nav>
+
+<header class="hero" id="topo">
+  <svg class="pipa-svg" viewBox="0 0 400 400" aria-hidden="true">
+    <path d="M40 150 Q200 -20 360 150 L310 175 Q200 70 90 175 Z" fill="#BFE3E8"/>
+    <path d="M90 175 L200 380 M310 175 L200 380" stroke="#BFE3E8" stroke-width="2" fill="none"/>
+  </svg>
+  <div class="wrap hero-grid">
+    <h1><span>Aprenda</span><span>a voar no</span><span>vento leste</span></h1>
+    <div>
+      <p class="lead">Escola de kitesurf na lagoa e no mar de Cumbuco, com instrutores certificados, equipamento incluso e rádio no capacete desde a primeira aula.</p>
+      <div class="acoes">
+        <a href="#reserva" class="btn btn-pipa">Reservar aula experimental</a>
+        <a href="#aulas" class="btn btn-claro">Ver pacotes</a>
+      </div>
+    </div>
+
+    <aside class="painel" aria-label="Condições de vento agora">
+      <header>
+        <span>Praia do Cumbuco, agora</span>
+        <span class="ao-vivo"><i></i>simulação</span>
+      </header>
+      <div class="leitura">
+        <div class="nos" aria-live="polite"><span id="nos">21</span><small>nós</small></div>
+        <svg class="bussola" viewBox="0 0 84 84" role="img" aria-label="Direção do vento: leste-sudeste">
+          <circle cx="42" cy="42" r="39" fill="none" stroke="rgba(191,227,232,.35)" stroke-width="2"/>
+          <text x="42" y="14" text-anchor="middle" font-size="9" fill="#BFE3E8" font-family="Figtree">N</text>
+          <g class="seta" id="seta"><path d="M42 16 L49 46 L42 40 L35 46 Z" fill="#E8B04B"/></g>
+        </svg>
+      </div>
+      <div class="dados">
+        <div><b id="rajada">26 nós</b>rajada</div>
+        <div><b>ESE</b>direção</div>
+        <div><b>27 °C</b>água</div>
+      </div>
+      <p class="veredito" id="veredito">Bom para todos os níveis: kite de 9 m para iniciantes.</p>
+    </aside>
+  </div>
+  <svg class="onda" viewBox="0 0 1440 70" preserveAspectRatio="none" aria-hidden="true"><path d="M0 40 Q180 0 360 30 T720 30 T1080 30 T1440 25 V70 H0 Z" fill="#F6FAF9"/></svg>
+</header>
+
+<main>
+<section id="aulas">
+  <div class="wrap">
+    <h2>Três jeitos de entrar na água</h2>
+    <p class="intro">Todos os pacotes incluem kite, prancha, trapézio, colete e lycra. As aulas são individuais ou em dupla, nunca em turma.</p>
+    <div class="aulas">
+      <article class="aula">
+        <div><h3>Batismo</h3><p class="dur">2 horas, 1 dia</p></div>
+        <p>Você entende como o vento funciona, pilota o kite na areia e termina arrastando o corpo na lagoa rasa. Ideal para saber se o esporte é para você.</p>
+        <div class="preco"><strong>R$ 390</strong><span>por pessoa</span><button class="escolher" data-pacote="Batismo">Escolher Batismo</button></div>
+      </article>
+      <article class="aula destaque">
+        <div><h3>Curso completo</h3><p class="dur">10 horas, 4 a 5 dias</p></div>
+        <p>Do zero até velejar sozinho e voltar ao ponto de partida. Inclui certificado IKO nível 2, que permite alugar equipamento em qualquer escola do mundo.</p>
+        <div class="preco"><strong>R$ 2.400</strong><span>por pessoa</span><button class="escolher" data-pacote="Curso completo">Escolher curso</button></div>
+      </article>
+      <article class="aula">
+        <div><h3>Downwind</h3><p class="dur">1 dia inteiro</p></div>
+        <p>Para quem já veleja: 40 km de Cumbuco até a Taíba seguindo o vento, com carro de apoio, almoço na praia e retorno incluso.</p>
+        <div class="preco"><strong>R$ 650</strong><span>por pessoa</span><button class="escolher" data-pacote="Downwind">Escolher Downwind</button></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="temporada" id="temporada">
+  <div class="wrap">
+    <h2>Quando o vento é melhor</h2>
+    <p class="intro">De julho a janeiro o vento sopra firme quase todo dia. Toque em um mês para ver o que esperar.</p>
+    <div class="grafico" id="grafico" role="group" aria-label="Média de vento por mês"></div>
+    <div class="legenda"><span><i style="background:var(--duna)"></i>Alta temporada</span><span><i style="background:#2A5876"></i>Vento mais fraco</span></div>
+    <p class="leitura-mes" id="leituraMes" aria-live="polite"></p>
+  </div>
+</section>
+
+<section id="como">
+  <div class="wrap">
+    <h2>Do primeiro contato à primeira velejada</h2>
+    <div class="passos">
+      <div class="passo"><h3>Reserve</h3><p>Escolha o pacote e a data. Confirmamos pelo WhatsApp em até 2 horas.</p></div>
+      <div class="passo"><h3>Briefing na areia</h3><p>30 minutos sobre segurança, vento e sinais de mão antes de abrir o kite.</p></div>
+      <div class="passo"><h3>Lagoa rasa</h3><p>Você treina com água na cintura, onde dá pé e não tem onda.</p></div>
+      <div class="passo"><h3>Mar aberto</h3><p>Quando estiver pronto, o instrutor acompanha você de jet ski no mar.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="reserva" id="reserva">
+  <div class="wrap reserva-grid">
+    <div>
+      <h2>Reserve sua aula</h2>
+      <p class="intro" style="color:var(--texto)">Sem pagamento agora. Você paga só no dia, depois de conferir o vento com a gente.</p>
+      <div class="infos">
+        <div><b>Onde</b>Av. dos Coqueiros, 1200, Cumbuco, Caucaia (CE)</div>
+        <div><b>Horário</b>Todos os dias, das 8h às 17h</div>
+        <div><b>Cancelamento</b>Grátis se o vento não colaborar</div>
+      </div>
+    </div>
+
+    <div>
+      <form id="form" novalidate>
+        <label>Seu nome<input id="nome" name="nome" autocomplete="name" required></label>
+        <div class="linha">
+          <label>WhatsApp<input id="whats" name="whats" inputmode="tel" placeholder="(85) 9 0000-0000" required></label>
+          <label>Data<input id="data" name="data" type="date" required></label>
+        </div>
+        <label>Pacote
+          <select id="pacote" name="pacote">
+            <option value="Batismo|390">Batismo, R$ 390</option>
+            <option value="Curso completo|2400" selected>Curso completo, R$ 2.400</option>
+            <option value="Downwind|650">Downwind, R$ 650</option>
+          </select>
+        </label>
+        <div class="linha">
+          <label>Pessoas
+            <select id="pessoas" name="pessoas"><option>1</option><option>2</option></select>
+          </label>
+          <fieldset>
+            <legend>Experiência</legend>
+            <div class="niveis">
+              <label><input type="radio" name="nivel" value="nunca" checked><span>Nunca fiz</span></label>
+              <label><input type="radio" name="nivel" value="ja"><span>Já fiz</span></label>
+            </div>
+          </fieldset>
+        </div>
+        <p class="resumo" id="resumo"></p>
+        <p class="erro" id="erro" role="alert"></p>
+        <button class="btn btn-pipa" type="submit">Reservar aula</button>
+      </form>
+      <div class="ok" id="ok" tabindex="-1">
+        <h3>Reserva registrada</h3>
+        <p id="okTexto"></p>
+        <p style="margin-top:1rem;color:var(--suave);font-size:.92rem">Este é um site de demonstração: nenhum dado foi enviado ou guardado.</p>
+        <button class="btn btn-pipa" style="margin-top:1.4rem" id="nova">Fazer outra reserva</button>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span class="logo">Vento Leste</span>
+    <span>Escola fictícia. Projeto de portfólio de Rafael Bruzaca.</span>
+    <a href="#topo" class="topo">Voltar ao topo</a>
+  </div>
+</footer>
+
+<script>
+// Painel de vento simulado
+(function(){
+  const nos=document.getElementById('nos'), raj=document.getElementById('rajada'),
+        seta=document.getElementById('seta'), ver=document.getElementById('veredito');
+  let v=21;
+  function atualiza(){
+    v=Math.max(14,Math.min(28,v+(Math.random()*4-2)));
+    const n=Math.round(v);
+    nos.textContent=n; raj.textContent=(n+Math.round(3+Math.random()*4))+' nós';
+    seta.style.transform='rotate('+(112+Math.random()*16-8)+'deg)';
+    ver.textContent = n<17 ? 'Vento leve: dia de kite grande (12 m) e aula na lagoa.'
+      : n<24 ? 'Bom para todos os níveis: kite de 9 m para iniciantes.'
+      : 'Vento forte: ótimo para quem já veleja, iniciantes ficam na lagoa.';
+  }
+  atualiza();
+  if(!matchMedia('(prefers-reduced-motion: reduce)').matches) setInterval(atualiza,3500);
+})();
+
+// Gráfico da temporada (médias aproximadas, ilustrativas)
+(function(){
+  const meses=[['Jan',19,'Fim da temporada, ainda com vento bom nas tardes.'],['Fev',13,'Época de chuva: vento irregular, poucos dias navegáveis.'],['Mar',11,'O mês mais fraco do ano. Bom para descansar a prancha.'],['Abr',11,'Chuva e vento fraco. Abrimos só com agendamento.'],['Mai',13,'O vento começa a voltar no fim do mês.'],['Jun',16,'Pré-temporada: dias bons alternados com calmaria.'],['Jul',21,'Começo da alta temporada, com vento firme a partir do meio-dia.'],['Ago',25,'Um dos meses mais fortes. Vento quase garantido todos os dias.'],['Set',26,'O pico do ano: vento forte e constante do amanhecer ao pôr do sol.'],['Out',25,'Ainda muito forte, com menos turistas que em setembro.'],['Nov',23,'Vento constante e mar mais calmo. Ótimo para iniciantes.'],['Dez',21,'Vento bom e praia cheia nas férias. Reserve com antecedência.']];
+  const g=document.getElementById('grafico'), out=document.getElementById('leituraMes'), max=28; let fixo='';
+  meses.forEach(([m,k,t],i)=>{
+    const b=document.createElement('button');
+    b.className='mes'+(k>=19?' alta':''); b.type='button';
+    b.setAttribute('aria-pressed','false');
+    b.setAttribute('aria-label',m+': média de '+k+' nós');
+    b.innerHTML='<span class="barra" style="height:'+(k/max*100)+'%"><span class="dica">'+k+' nós</span></span><span>'+m+'</span>';
+    const txt='<b>'+m+', cerca de '+k+' nós.</b> '+t;
+    b.onclick=()=>{
+      g.querySelectorAll('.mes').forEach(x=>x.setAttribute('aria-pressed','false'));
+      b.setAttribute('aria-pressed','true'); fixo=txt; out.innerHTML=txt;
+    };
+    b.onmouseenter=()=>{out.innerHTML=txt};
+    b.onmouseleave=()=>{out.innerHTML=fixo};
+    g.appendChild(b);
+    if(i===8) setTimeout(()=>b.click(),0);
+  });
+})();
+
+// Reserva (demonstração)
+(function(){
+  const f=document.getElementById('form'), erro=document.getElementById('erro'),
+        resumo=document.getElementById('resumo'), ok=document.getElementById('ok'),
+        okT=document.getElementById('okTexto'), data=document.getElementById('data'),
+        whats=document.getElementById('whats');
+  const hoje=new Date(); hoje.setMinutes(hoje.getMinutes()-hoje.getTimezoneOffset());
+  data.min=hoje.toISOString().slice(0,10);
+  const brl=n=>n.toLocaleString('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:0});
+  function calc(){
+    const [nome,preco]=f.pacote.value.split('|'), p=+f.pessoas.value;
+    resumo.innerHTML='Total estimado: <b>'+brl(preco*p)+'</b> ('+nome+', '+p+(p>1?' pessoas':' pessoa')+')';
+    return {nome,total:preco*p};
+  }
+  f.addEventListener('change',calc); calc();
+  whats.addEventListener('input',()=>{
+    let d=whats.value.replace(/\D/g,'').slice(0,11);
+    if(d.length>6) whats.value='('+d.slice(0,2)+') '+d.slice(2,3)+' '+d.slice(3,7)+'-'+d.slice(7);
+    else if(d.length>2) whats.value='('+d.slice(0,2)+') '+d.slice(2);
+    else whats.value=d;
+  });
+  f.addEventListener('submit',e=>{
+    e.preventDefault();
+    const nome=f.nome.value.trim(), tel=whats.value.replace(/\D/g,'');
+    if(!nome){erro.textContent='Informe seu nome.';f.nome.focus();return}
+    if(tel.length<10){erro.textContent='Informe um WhatsApp com DDD, por exemplo (85) 9 9999-9999.';whats.focus();return}
+    if(!data.value){erro.textContent='Escolha a data da aula.';data.focus();return}
+    if(data.value<data.min){erro.textContent='Escolha uma data a partir de hoje.';data.focus();return}
+    erro.textContent='';
+    const {nome:pac,total}=calc();
+    const dt=new Date(data.value+'T12:00').toLocaleDateString('pt-BR',{weekday:'long',day:'numeric',month:'long'});
+    okT.innerHTML='Pronto, <b>'+nome.split(' ')[0]+'</b>. '+pac+' para '+dt+', total de '+brl(total)+'. Numa escola de verdade, a confirmação chegaria no seu WhatsApp em até 2 horas.';
+    f.style.display='none'; ok.classList.add('visivel'); ok.focus();
+  });
+  document.getElementById('nova').onclick=()=>{f.reset();calc();ok.classList.remove('visivel');f.style.display='grid';f.nome.focus()};
+})();
+
+// Interações
+(function(){
+  const nav=document.querySelector('.nav');
+  const onScroll=()=>nav.classList.toggle('rolou',scrollY>40);
+  addEventListener('scroll',onScroll,{passive:true}); onScroll();
+
+  const links=[...document.querySelectorAll('.nav ul a')];
+  const io=new IntersectionObserver(es=>es.forEach(e=>{
+    if(e.isIntersecting) links.forEach(a=>a.classList.toggle('ativo',a.getAttribute('href')==='#'+e.target.id));
+  }),{rootMargin:'-45% 0px -50% 0px'});
+  ['aulas','temporada','como','reserva','topo'].forEach(id=>io.observe(document.getElementById(id)));
+
+  document.querySelectorAll('.escolher').forEach(b=>b.addEventListener('click',()=>{
+    const s=document.getElementById('pacote'), f=document.getElementById('form');
+    s.value=[...s.options].find(o=>o.value.startsWith(b.dataset.pacote)).value;
+    s.dispatchEvent(new Event('change',{bubbles:true}));
+    if(f.style.display==='none') document.getElementById('nova').click();
+    document.getElementById('reserva').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
+    f.classList.remove('realce'); void f.offsetWidth; f.classList.add('realce');
+    setTimeout(()=>document.getElementById('nome').focus({preventScroll:true}),700);
+  }));
+
+  if(!matchMedia('(hover:hover) and (prefers-reduced-motion: no-preference)').matches) return;
+  const hero=document.querySelector('.hero'), kite=document.querySelector('.pipa-svg'), painel=document.querySelector('.painel');
+  hero.addEventListener('pointermove',e=>{
+    const r=hero.getBoundingClientRect(), x=(e.clientX-r.left)/r.width, y=(e.clientY-r.top)/r.height;
+    hero.style.setProperty('--mx',x*100+'%'); hero.style.setProperty('--my',y*100+'%');
+    kite.style.transform='translate('+(x-.5)*-50+'px,'+(y-.5)*-35+'px) rotate('+(x-.5)*10+'deg)';
+  });
+  hero.addEventListener('pointerleave',()=>{kite.style.transform=''});
+  painel.addEventListener('pointermove',e=>{
+    const r=painel.getBoundingClientRect(), x=(e.clientX-r.left)/r.width-.5, y=(e.clientY-r.top)/r.height-.5;
+    painel.style.transform='perspective(900px) rotateY('+x*9+'deg) rotateX('+(-y*9)+'deg)';
+  });
+  painel.addEventListener('pointerleave',()=>{painel.style.transform=''});
+})();
+</script>
+</body>
+</html>
